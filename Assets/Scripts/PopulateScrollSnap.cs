@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DanielLochner.Assets.SimpleScrollSnap;
 
 public class PopulateScrollSnap : MonoBehaviour
 {
     [SerializeField] DollDatasHolder dollDatasHolder;
     [SerializeField] GameObject dollUiImagePrefab;
-    [SerializeField] GameObject contentParent;
     private List<DollDataScriptableObject> dollDatas;
+    [SerializeField] SimpleScrollSnap simpleScrollSnap;
+    public bool wasPopulated = false;
 
     // TODO: Take doll id's from savings
     private void OnEnable()
     {
-        dollDatas = dollDatasHolder.GetDollDatas();
-
-        foreach (DollDataScriptableObject item in dollDatas)
+        if (!wasPopulated)
         {
-            GameObject newDollUiImage = Instantiate(dollUiImagePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+            wasPopulated = true;
+            dollDatas = dollDatasHolder.GetDollDatas();
 
-            newDollUiImage.transform.parent = contentParent.transform;
-            newDollUiImage.GetComponentInChildren<Image>().sprite = item.dollImage;
+            foreach (DollDataScriptableObject item in dollDatas)
+            {
+                simpleScrollSnap.AddToBack(dollUiImagePrefab);
+                dollUiImagePrefab.GetComponentInChildren<Image>().sprite = item.dollImage;
+            }
         }
     }
 }

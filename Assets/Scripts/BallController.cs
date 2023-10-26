@@ -13,11 +13,16 @@ public class BallController : MonoBehaviour
     private List<DollDataScriptableObject> dollDatas;
     [SerializeField] SpriteRenderer dollSpriteRenderer;
     [SerializeField] BallManager ballManager;
+    [SerializeField] GameObject particleEffect;
+    private Vector2 initialPosition;
+    private Vector2 initialScale;
     bool opened = false;
     bool canBeClaimed = false;
 
     private void OnEnable()
     {
+        initialPosition = transform.localPosition;
+        initialScale = transform.localScale;
         MoveBallToCenter();
         iTween.ScaleTo(gameObject, iTween.Hash("x", 1, "y", 1, "time", .5f, "islocal", true, "easetype", iTween.EaseType.easeOutBack));
         dollDatas = dollDatasHolder.GetDollDatas();
@@ -67,6 +72,7 @@ public class BallController : MonoBehaviour
         dollSpriteRenderer.gameObject.SetActive(true);
         int i = Random.RandomRange(0, dollDatas.Count);
         dollSpriteRenderer.sprite = dollDatas[i].dollImage;
+        particleEffect.SetActive(true);
         if (!Progress.Instance.playerInfo.collectedDollsId.Contains(i))
         {
             Progress.Instance.playerInfo.collectedDollsId.Add(i);
@@ -93,13 +99,34 @@ public class BallController : MonoBehaviour
     }
 
 
-    void ActionAfterTweenComplete()
+    public void ResetMethod()
     {
-        MoveBallToCenter();
         animator.Play("idle");
         opened = false;
         clicks = 0;
         dollSpriteRenderer.gameObject.SetActive(false);
+        particleEffect.SetActive(false);
+    }
+
+    public void RessetAndClose()
+    {
+        animator.Play("customIdle");
+    }
+
+    public void AnimResetter()
+    {
+        opened = false;
+        clicks = 0;
+        dollSpriteRenderer.gameObject.SetActive(false);
+        transform.localPosition = initialPosition;
+        transform.localScale = initialScale;
+        gameObject.SetActive(false);
+    }
+
+    void ActionAfterTweenComplete()
+    {
+        MoveBallToCenter();
+        ResetMethod();
         transform.position = new Vector2(-5, 0);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInfo
 {
     public int coins = 0;
+    public int clickRevenue = 1;
     public int dollBalls = 10;
     public List<int> collectedDollsId;
     public int record;
