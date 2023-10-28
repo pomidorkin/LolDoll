@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DanielLochner.Assets.SimpleScrollSnap;
+using TMPro;
 
 public class PopulateScrollSnap : MonoBehaviour
 {
@@ -10,21 +11,27 @@ public class PopulateScrollSnap : MonoBehaviour
     [SerializeField] GameObject dollUiImagePrefab;
     private List<DollDataScriptableObject> dollDatas;
     [SerializeField] SimpleScrollSnap simpleScrollSnap;
-    public bool wasPopulated = false;
 
     // TODO: Take doll id's from savings
     private void OnEnable()
     {
-        if (!wasPopulated)
+        int numberOfPanels = simpleScrollSnap.NumberOfPanels;
+        for (int i = 0; i < numberOfPanels; i++)
         {
-            wasPopulated = true;
-            dollDatas = dollDatasHolder.GetDollDatas();
+            //simpleScrollSnap.Remove(i);
+            simpleScrollSnap.RemoveFromBack();
+            Debug.Log("simpleScrollSnap.NumberOfPanels: " + simpleScrollSnap.NumberOfPanels + ", Removing");
+        }
 
-            foreach (DollDataScriptableObject item in dollDatas)
-            {
-                simpleScrollSnap.AddToBack(dollUiImagePrefab);
-                dollUiImagePrefab.GetComponentInChildren<Image>().sprite = item.dollImage;
-            }
+        dollDatas = dollDatasHolder.GetDollDatas();
+
+        for (int i = 0; i < Progress.Instance.playerInfo.collectedDollsDic.keys.Count; i++)
+        {
+            simpleScrollSnap.AddToBack(dollUiImagePrefab);
+            GameObject newInstance = simpleScrollSnap.Panels[i].gameObject;
+            newInstance.GetComponentInChildren<Image>().sprite = dollDatas[Progress.Instance.playerInfo.collectedDollsDic.keys[i]].dollImage;
+            newInstance.GetComponentInChildren<TMP_Text>().text = "У вас " + Progress.Instance.playerInfo.collectedDollsDic.GetValue(Progress.Instance.playerInfo.collectedDollsDic.keys[i]) + " таких кукол!";
+            //simpleScrollSnap.Panels[i].GetComponentInChildren<Image>().sprite = dollDatas[Progress.Instance.playerInfo.collectedDollsDic.keys[i]].dollImage;
         }
     }
 }

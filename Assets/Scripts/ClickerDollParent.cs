@@ -23,6 +23,8 @@ public class ClickerDollParent : MonoBehaviour
     public void StartClicking()
     {
         spriteRenderer.sprite = simpleScrollSnap.Panels[selectedDollId].gameObject.GetComponentInChildren<Image>().sprite;
+        float ratio = 500f / spriteRenderer.sprite.texture.height; 
+        spriteRenderer.gameObject.transform.localScale = new Vector2(1f * ratio, 1f * ratio);
         menuManager.OpenClickerDollImage();
     }
 }

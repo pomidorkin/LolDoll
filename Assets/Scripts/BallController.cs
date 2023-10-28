@@ -70,9 +70,11 @@ public class BallController : MonoBehaviour
     private void SpawnDoll()
     {
         // TODO: Safe dolls here
-        dollSpriteRenderer.gameObject.SetActive(true);
+        dollSpriteRenderer.gameObject.transform.parent.gameObject.SetActive(true);
         int i = Random.RandomRange(0, dollDatas.Count);
         dollSpriteRenderer.sprite = dollDatas[i].dollImage;
+        float ratio = 500f / dollSpriteRenderer.sprite.texture.height;
+        dollSpriteRenderer.gameObject.transform.localScale = new Vector2(1f * ratio, 1f * ratio);
         particleEffect.gameObject.SetActive(true);
 
         bool dollExists = false;
@@ -124,7 +126,7 @@ public class BallController : MonoBehaviour
         animator.Play("idle");
         opened = false;
         clicks = 0;
-        dollSpriteRenderer.gameObject.SetActive(false);
+        dollSpriteRenderer.gameObject.transform.parent.gameObject.SetActive(false);
         particleEffect.Stop();
         particleEffect.gameObject.SetActive(false);
     }
@@ -138,7 +140,7 @@ public class BallController : MonoBehaviour
     {
         opened = false;
         clicks = 0;
-        dollSpriteRenderer.gameObject.SetActive(false);
+        dollSpriteRenderer.gameObject.transform.parent.gameObject.SetActive(false);
         particleEffect.Stop();
         transform.localPosition = initialPosition;
         transform.localScale = initialScale;

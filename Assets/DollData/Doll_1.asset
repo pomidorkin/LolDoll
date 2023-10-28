@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d13cbc0bbb3d0a4185514cdd4df8516, type: 3}
   m_Name: Doll_1
   m_EditorClassIdentifier: 
-  dollName: Test
+  dollName: 
   rarity: 1
-  dollImage: {fileID: -1700178389074930156, guid: 223e2977314dec44eb7b0ff734af75b6, type: 3}
+  dollImage: {fileID: 0}
