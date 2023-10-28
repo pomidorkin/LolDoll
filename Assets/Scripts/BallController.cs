@@ -13,7 +13,7 @@ public class BallController : MonoBehaviour
     private List<DollDataScriptableObject> dollDatas;
     [SerializeField] SpriteRenderer dollSpriteRenderer;
     [SerializeField] BallManager ballManager;
-    [SerializeField] GameObject particleEffect;
+    [SerializeField] ParticleSystem particleEffect;
     private Vector2 initialPosition;
     private Vector2 initialScale;
     bool opened = false;
@@ -56,7 +56,8 @@ public class BallController : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
+                RessetAndClose();
+                //gameObject.SetActive(false);
             }
         }
     }
@@ -72,15 +73,34 @@ public class BallController : MonoBehaviour
         dollSpriteRenderer.gameObject.SetActive(true);
         int i = Random.RandomRange(0, dollDatas.Count);
         dollSpriteRenderer.sprite = dollDatas[i].dollImage;
-        particleEffect.SetActive(true);
-        if (!Progress.Instance.playerInfo.collectedDollsId.Contains(i))
+        particleEffect.gameObject.SetActive(true);
+
+        bool dollExists = false;
+
+        if (Progress.Instance.playerInfo.collectedDollsDic.keys.Count > 0)
         {
-            Progress.Instance.playerInfo.collectedDollsId.Add(i);
-            
+            foreach (int item in Progress.Instance.playerInfo.collectedDollsDic.keys)
+            {
+                if (item == i)
+                {
+                    Progress.Instance.playerInfo.collectedDollsDic.IncrementValue(i, 1);
+                    Progress.Instance.Save();
+                    dollExists = true;
+                    break;
+                }
+            }
         }
-        else
+
+        if (!dollExists)
         {
             // TODO: Do somth when the doll is already in collection
+            if (Progress.Instance.playerInfo.collectedDollsDic == null)
+            {
+                Progress.Instance.playerInfo.collectedDollsDic = new IntIntDictionary();
+            }
+            Progress.Instance.playerInfo.collectedDollsDic.Add(i, 1);
+            Progress.Instance.Save();
+
         }
         Progress.Instance.playerInfo.dollBalls--;
         ballManager.UpdateBallText();
@@ -105,7 +125,8 @@ public class BallController : MonoBehaviour
         opened = false;
         clicks = 0;
         dollSpriteRenderer.gameObject.SetActive(false);
-        particleEffect.SetActive(false);
+        particleEffect.Stop();
+        particleEffect.gameObject.SetActive(false);
     }
 
     public void RessetAndClose()
@@ -118,8 +139,10 @@ public class BallController : MonoBehaviour
         opened = false;
         clicks = 0;
         dollSpriteRenderer.gameObject.SetActive(false);
+        particleEffect.Stop();
         transform.localPosition = initialPosition;
         transform.localScale = initialScale;
+        particleEffect.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 
