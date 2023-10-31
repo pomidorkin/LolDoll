@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4645132edefd4c74968a0c941a98fb89, type: 3}
+  m_Name: AudioDatabase
+  m_EditorClassIdentifier: 
+  _items:
+  - Clip: {fileID: 8300000, guid: 994fec08e661a40479200657ba5f28af, type: 3}
+    Key: close
+    FolderPath: AudioFiles\
+    Name: close.mp3
+    Preload: 1
+    _id: c172f115-7ab5-487d-bbfb-9309702a7af3
+  - Clip: {fileID: 8300000, guid: f35a909444379d84397258ef15bc6ee8, type: 3}
+    Key: Boom
+    FolderPath: AudioFiles\
+    Name: Boom.mp3
+    Preload: 1
+    _id: 91ed0453-4c8e-4ebf-9a06-d76fc57cacae
+  - Clip: {fileID: 8300000, guid: 6a7a1c7f868a1614faafadc9e606071d, type: 3}
+    Key: selection
+    FolderPath: AudioFiles\
+    Name: selection.mp3
+    Preload: 1
+    _id: 835fdbc7-1b53-48b2-a9f2-348e98880cab
+  - Clip: {fileID: 8300000, guid: d74995a7db9b52c46935d8d59bae275d, type: 3}
+    Key: Poof
+    FolderPath: AudioFiles\
+    Name: Poof.mp3
+    Preload: 1
+    _id: 2b4d964c-bf24-428d-8e91-dd35e114dad8
+  - Clip: {fileID: 8300000, guid: 0f482d8abd1e4d74aaac6697ccf9e856, type: 3}
+    Key: coins
+    FolderPath: AudioFiles\
+    Name: coins.mp3
+    Preload: 1
+    _id: 3d5b06af-8c36-4fa2-b3d4-f4edb7e1bbfe
+  - Clip: {fileID: 8300000, guid: 67e9b181f12302846ad7c8b389ffca1f, type: 3}
+    Key: mainTheme
+    FolderPath: AudioFiles\
+    Name: mainTheme.mp3
+    Preload: 1
+    _id: 3b1ed4fb-46db-4dd4-8936-ad3cc79b402d

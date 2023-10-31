@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9140dc3a98f78a748beaca120afc12c8
+guid: 7ac7e25ce7856094aab55204359791e7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2150556006579536266
-    second: pngimg.com - lol_dolls_PNG128_0
+      213: 8823843722786442957
+    second: ball_1 1 (1)_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -110,43 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ball_1_0
+      name: ball_1 1 (1)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1248
-        width: 2496
-        height: 1248
+        x: 49
+        y: 75
+        width: 388
+        height: 385
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5a9c92bd76aff5845a4dbd6b1bfbbba8
-      internalID: -548881058
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ball_1_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2496
-        height: 1248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a2a8064495f2c5428c81da7f000acf1
-      internalID: 1418423381
+      spriteID: dce0f3a7d17947a70800000000000000
+      internalID: 8823843722786442957
       vertices: []
       indices: 
       edges: []
@@ -154,7 +133,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f563d5819fbbd8c4fa6c193b9845124d
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -162,8 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ball_1_0: -548881058
-      ball_1_1: 1418423381
+      ball_1 1 (1)_0: 8823843722786442957
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

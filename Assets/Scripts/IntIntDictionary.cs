@@ -14,6 +14,12 @@ public class IntIntDictionary
         values.Add(value);
     }
 
+    public void Initialize()
+    {
+        keys = new List<int>();
+        values = new List<int>();
+    }
+
     public int GetValue(int key)
     {
         int index = keys.IndexOf(key);

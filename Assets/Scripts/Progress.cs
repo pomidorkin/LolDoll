@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 [System.Serializable]
 public class PlayerInfo
 {
     public int coins = 0;
     public int clickRevenue = 1;
-    public int dollBalls = 0;
-    public IntIntDictionary collectedDollsDic = new IntIntDictionary();
+    public int dollBalls = 10;
+    public IntIntDictionary collectedDollsDic;
     public int record;
     public bool firstStart = false;
 }
@@ -16,11 +17,11 @@ public class Progress : MonoBehaviour
 {
     public PlayerInfo playerInfo;
 
-    /*[DllImport("__Internal")]
+    [DllImport("__Internal")]
     private static extern void SaveExtern(string data);
 
     [DllImport("__Internal")]
-    private static extern void LoadExtern();*/
+    private static extern void LoadExtern();
 
     public static Progress Instance;
 
@@ -30,8 +31,9 @@ public class Progress : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             Instance = this;
-            //LoadExtern();
-            SetPlayerInfoLocal();
+            LoadExtern();
+            //Save();
+            //SetPlayerInfoLocal();
         }
         else
         {
@@ -42,9 +44,10 @@ public class Progress : MonoBehaviour
     public void Save()
     {
         string jsonString = JsonUtility.ToJson(playerInfo);
-        //SaveExtern(jsonString);
-        PlayerPrefs.SetString("data", jsonString);
-        PlayerPrefs.Save();
+        //Debug.Log("Serialized playerInfo: " + playerInfo);
+        SaveExtern(jsonString);
+        //PlayerPrefs.SetString("data", jsonString);
+        //PlayerPrefs.Save();
     }
 
     public void SetPlayerInfoLocal()

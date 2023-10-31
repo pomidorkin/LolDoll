@@ -11,16 +11,21 @@ public class VulomeManager : MonoBehaviour
     [SerializeField] GameObject muteIcon;
     private bool popUpClosed = true;
     private bool muteIconActivated = false;
+    public bool listenerAdded = false;
 
     void Start()
     {
-        volumeSlider.onValueChanged.AddListener(delegate { OnVolumeChangedHandler(); });
+        if (!listenerAdded)
+        {
+            listenerAdded = true;
+            volumeSlider.onValueChanged.AddListener(delegate { OnVolumeChangedHandler(); });
+        }
     }
     public void OpenSoundManagerPopUp()
     {
         soundManagerPopup.SetActive(popUpClosed);
         popUpClosed = !popUpClosed;
-        volumeSlider.value = AudioListener.volume;
+        volumeSlider.value = SoundManager.Instance.volume;
     }
 
     public void CloseVolumePopup()

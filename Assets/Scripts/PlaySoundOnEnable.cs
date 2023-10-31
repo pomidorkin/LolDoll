@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Plugins.Audio.Utils;
 
 public class PlaySoundOnEnable : MonoBehaviour
 {
-    [SerializeField] AudioClip clip;
+    [SerializeField] AudioDataProperty clip;
 
     private void OnEnable()
     {

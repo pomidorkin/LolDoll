@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Plugins.Audio.Utils;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject marketPopup;
     [SerializeField] MarketManager marketManager;
     [SerializeField] VulomeManager volumeManager;
+    // SFX
+    [SerializeField] AudioDataProperty clip;
 
     public int selectedDollId;
 
     public void CloseAllMenus()
     {
+        SoundManager.Instance.PlaySound(clip);
         ballController.RessetAndClose();
         scrollSnap.SetActive(false);
         clickerDollImage.SetActive(false);
@@ -25,6 +29,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenScrollSnap()
     {
+        SoundManager.Instance.PlaySound(clip);
         ballController.RessetAndClose();
         clickerDollImage.SetActive(false);
         marketPopup.SetActive(false);
@@ -35,6 +40,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenBallOpenMenu()
     {
+        SoundManager.Instance.PlaySound(clip);
         scrollSnap.SetActive(false);
         clickerDollImage.SetActive(false);
         marketPopup.SetActive(false);
@@ -45,6 +51,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenClickerDollImage()
     {
+        SoundManager.Instance.PlaySound(clip);
         //ballController.RessetAndClose();
         scrollSnap.SetActive(false);
         marketPopup.SetActive(false);
@@ -55,6 +62,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMarketPopup()
     {
+        SoundManager.Instance.PlaySound(clip);
         ballController.RessetAndClose();
         scrollSnap.SetActive(false);
         clickerDollImage.SetActive(false);

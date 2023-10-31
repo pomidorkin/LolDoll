@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DollDatasHolder : MonoBehaviour
 {
-    [SerializeField] List<DollDataScriptableObject> dollDatas;
+    [SerializeField] List<Sprite> dollDatas;
 
-    public List<DollDataScriptableObject> GetDollDatas()
+    public List<Sprite> GetDollDatas()
     {
         return dollDatas;
     }

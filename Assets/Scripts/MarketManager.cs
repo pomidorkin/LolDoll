@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Plugins.Audio.Utils;
 
 public class MarketManager : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class MarketManager : MonoBehaviour
     [SerializeField] Button buyButton;
     [SerializeField] Button buyClickButton;
     [SerializeField] TMP_Text clickPriceText;
+    // SFX
+    [SerializeField] AudioDataProperty clip;
 
     public void BuyBall()
     {
         if (Progress.Instance.playerInfo.coins >= ballPrice)
         {
+            SoundManager.Instance.PlaySound(clip);
             Progress.Instance.playerInfo.coins -= ballPrice;
             Progress.Instance.playerInfo.dollBalls++;
             Progress.Instance.Save();
@@ -30,6 +34,7 @@ public class MarketManager : MonoBehaviour
     {
         if (Progress.Instance.playerInfo.coins >= (Progress.Instance.playerInfo.clickRevenue * 100))
         {
+            SoundManager.Instance.PlaySound(clip);
             Progress.Instance.playerInfo.coins -= (Progress.Instance.playerInfo.clickRevenue * 100);
             Progress.Instance.playerInfo.clickRevenue++;
             Progress.Instance.Save();

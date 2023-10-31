@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using Plugins.Audio.Utils;
+using System.Runtime.InteropServices;
 
 public class BallController : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern void UpdateLeaderboard(int val);
+
     [SerializeField] MMFeedbacks myMMFeedback;
     [SerializeField] Animator animator;
     private int clicks = 0;
     [SerializeField] int clickLimit = 10;
     [SerializeField] DollDatasHolder dollDatasHolder;
-    private List<DollDataScriptableObject> dollDatas;
+    private List<Sprite> dollDatas;
     [SerializeField] SpriteRenderer dollSpriteRenderer;
     [SerializeField] BallManager ballManager;
     [SerializeField] ParticleSystem particleEffect;
@@ -18,6 +23,8 @@ public class BallController : MonoBehaviour
     private Vector2 initialScale;
     bool opened = false;
     bool canBeClaimed = false;
+    // SFX
+    [SerializeField] AudioDataProperty clip;
 
     private void OnEnable()
     {
@@ -39,6 +46,7 @@ public class BallController : MonoBehaviour
         {
             myMMFeedback.PlayFeedbacks();
             clicks++;
+            SoundManager.Instance.PlaySound(clip);
             if (clicks >= clickLimit)
             {
                 OpenBall();
@@ -72,7 +80,7 @@ public class BallController : MonoBehaviour
         // TODO: Safe dolls here
         dollSpriteRenderer.gameObject.transform.parent.gameObject.SetActive(true);
         int i = Random.RandomRange(0, dollDatas.Count);
-        dollSpriteRenderer.sprite = dollDatas[i].dollImage;
+        dollSpriteRenderer.sprite = dollDatas[i];
         float ratio = 500f / dollSpriteRenderer.sprite.texture.height;
         dollSpriteRenderer.gameObject.transform.localScale = new Vector2(1f * ratio, 1f * ratio);
         particleEffect.gameObject.SetActive(true);
@@ -86,7 +94,7 @@ public class BallController : MonoBehaviour
                 if (item == i)
                 {
                     Progress.Instance.playerInfo.collectedDollsDic.IncrementValue(i, 1);
-                    Progress.Instance.Save();
+                    //Progress.Instance.Save();
                     dollExists = true;
                     break;
                 }
@@ -96,14 +104,24 @@ public class BallController : MonoBehaviour
         if (!dollExists)
         {
             // TODO: Do somth when the doll is already in collection
-            if (Progress.Instance.playerInfo.collectedDollsDic == null)
+            /*if (Progress.Instance.playerInfo.collectedDollsDic == null)
             {
                 Progress.Instance.playerInfo.collectedDollsDic = new IntIntDictionary();
-            }
+            }*/
             Progress.Instance.playerInfo.collectedDollsDic.Add(i, 1);
-            Progress.Instance.Save();
+            //Progress.Instance.Save();
 
         }
+
+        Debug.Log("Keys length: " + Progress.Instance.playerInfo.collectedDollsDic.keys.Count + ", Random int: " + i + ", dollExists: " + dollExists +
+            ", Added doll id: " + Progress.Instance.playerInfo.collectedDollsDic.keys.IndexOf(i) + " - " + Progress.Instance.playerInfo.collectedDollsDic.GetValue(i));
+
+        int totalDolls = 0;
+        foreach (int item in Progress.Instance.playerInfo.collectedDollsDic.values)
+        {
+            totalDolls += item;
+        }
+        //UpdateLeaderboard(totalDolls);
         Progress.Instance.playerInfo.dollBalls--;
         ballManager.UpdateBallText();
         Progress.Instance.Save();
